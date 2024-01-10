@@ -22,30 +22,30 @@
 
 ## products テーブル
 
-| Column               | Type    | Options                          |
-| -------------------- | ------- | -------------------------------- |
-| product_name         | string  | null: false                      |
-| product_information  | text    | null: false                      |
-| product_category_id  | integer | null: false                      |
-| product_condition_id | integer | null: false                      |
-| shipping_charge_id   | integer | null: false                      |
-| shipping_area_id     | integer | null: false                      |
-| shipping_days_id     | integer | null: false                      |
-| selling_price        | integer | null: false                      |
-| user_id              | integer | REFERENCES user(id), null: false |
+| Column               | Type             | Options                        |
+| -------------------- | ---------------- | ------------------------------ |
+| product_name         | string           | null: false                    |
+| product_information  | text             | null: false                    |
+| product_category_id  | integer          | null: false                    |
+| product_condition_id | integer          | null: false                    |
+| shipping_charge_id   | integer          | null: false                    |
+| shipping_area_id     | integer          | null: false                    |
+| shipping_day_id      | integer          | null: false                    |
+| selling_price        | integer          | null: false                    |
+| user                 | references: user | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one : purchase record
+- has_one :purchase_record
 
 
 ## purchase_records テーブル
 
-| Column     | Type    | Options                             |
-| ---------- | ------- | ----------------------------------- |
-| user_id    | integer | REFERENCES user(id), null: false    |
-| product_id | integer | REFERENCES product(id), null: false |
+| Column  | Type                | Options                        |
+| ------- | ------------------- | ------------------------------ |
+| user    | references: user    | null: false, foreign_key: true |
+| product | references: product | null: false, foreign_key: true |
 
 ### Association
 
@@ -54,17 +54,17 @@
 - has_one :shipping_information
 
 
-## shippings_information テーブル
+## deliveries テーブル
 
-| Column             | Type    | Options                                     |
-| ------------------ | ------- | ------------------------------------------- |
-| post_code          | string  | null: false                                 |
-| shipping_area_id   | integer | null: false                                 |
-| municipalities     | string  | null: false                                 |
-| street_address     | string  | null: false                                 |
-| building_name      | string  |
-| phone_number       | string  | null: false                                 |
-| purchase_record_id | integer | REFERENCES purchase_record(id), null: false |
+| Column           | Type                        | Options                        |
+| ---------------- | --------------------------- | ------------------------------ |
+| post_code        | string                      | null: false                    |
+| shipping_area_id | integer                     | null: false                    |
+| municipalities   | string                      | null: false                    |
+| street_address   | string                      | null: false                    |
+| building_name    | string                      |
+| phone_number     | string                      | null: false                    |
+| purchase_record  | references: purchase_record | null: false, foreign_key: true |
 
 
 ### Association
