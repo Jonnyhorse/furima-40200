@@ -22,17 +22,17 @@
 
 ## products テーブル
 
-| Column               | Type             | Options                        |
-| -------------------- | ---------------- | ------------------------------ |
-| product_name         | string           | null: false                    |
-| product_information  | text             | null: false                    |
-| product_category_id  | integer          | null: false                    |
-| product_condition_id | integer          | null: false                    |
-| shipping_charge_id   | integer          | null: false                    |
-| shipping_area_id     | integer          | null: false                    |
-| shipping_day_id      | integer          | null: false                    |
-| selling_price        | integer          | null: false                    |
-| user                 | references: user | null: false, foreign_key: true |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| name               | string     | null: false                    |
+| information        | text       | null: false                    |
+| category_id        | integer    | null: false                    |
+| condition_id       | integer    | null: false                    |
+| delivery_charge_id | integer    | null: false                    |
+| delivery_area_id   | integer    | null: false                    |
+| delivery_day_id    | integer    | null: false                    |
+| selling_price      | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -42,29 +42,29 @@
 
 ## purchase_records テーブル
 
-| Column  | Type                | Options                        |
-| ------- | ------------------- | ------------------------------ |
-| user    | references: user    | null: false, foreign_key: true |
-| product | references: product | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| user    | references | null: false, foreign_key: true |
+| product | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :product
-- has_one :shipping_information
+- has_one :delivery_information
 
 
 ## deliveries テーブル
 
-| Column           | Type                        | Options                        |
-| ---------------- | --------------------------- | ------------------------------ |
-| post_code        | string                      | null: false                    |
-| shipping_area_id | integer                     | null: false                    |
-| municipalities   | string                      | null: false                    |
-| street_address   | string                      | null: false                    |
-| building_name    | string                      |
-| phone_number     | string                      | null: false                    |
-| purchase_record  | references: purchase_record | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| post_code        | string     | null: false                    |
+| delivery_area_id | integer    | null: false                    |
+| municipalities   | string     | null: false                    |
+| street_address   | string     | null: false                    |
+| building_name    | string     |
+| phone_number     | string     | null: false                    |
+| purchase_record  | references | null: false, foreign_key: true |
 
 
 ### Association
