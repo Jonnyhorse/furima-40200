@@ -32,14 +32,14 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Last name katakana can't be blank")
       end
       it '名前の名(カタカナ)が空では登録できない' do
-        @user.first_name_chinese_character = ''
+        @user.first_name_katakana = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("First name katakana can't be blank")
       end
       it '生年月日が空では登録できない' do
         @user.date_of_birth = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("date_of_birth can't be blank")
+        expect(@user.errors.full_messages).to include("Date of birth can't be blank")
       end
       it 'emailが空では登録できない' do
         @user.email = ''
