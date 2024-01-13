@@ -26,6 +26,26 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("First name chinese character can't be blank")
       end
+      it '名前の姓(漢字)に半角文字が含まれていると登録できない' do
+        @user.last_name_chinese_character = 'ﾃｽﾄ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name chinese character は全角で入力してください")
+      end
+      it '名前の名(漢字)に半角文字が含まれていると登録できない' do
+        @user.first_name_chinese_character = 'ﾃｽﾄ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name chinese character は全角で入力してください")
+      end
+      it '名前の姓(カタカナ)にカタカナ以外の文字が含まれていると登録できない' do
+        @user.last_name_katakana = 'てすと'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name katakana は全角カタカナで入力してください")
+      end
+      it '名前の名(カタカナ)にカタカナ以外の文字が含まれていると登録できない' do
+        @user.first_name_katakana = 'てすと'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name katakana は全角カタカナで入力してください")
+      end
       it '名前の姓(カタカナ)が空では登録できない' do
         @user.last_name_katakana = ''
         @user.valid?
