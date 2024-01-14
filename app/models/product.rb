@@ -4,8 +4,11 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category, :condition, :delivery_area, :delivery_charge, :delivery_day
-
+  belongs_to :category
+  belongs_to :condition
+  belongs_to :delivery_area
+  belongs_to :delivery_charge
+  belongs_to :delivery_day
   #空の投稿を保存できないようにする
   validates :category, :condition, :delivery_area, :delivery_charge, :delivery_day, presence: true
 
