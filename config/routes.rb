@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   # root to: "items#index"
 
   root to: 'products#index'
-  resources :products
+  resources :products, only: [:index, :new, :create]
 end
