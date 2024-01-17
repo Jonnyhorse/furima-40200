@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :product do
     # 必要な属性を追加する
     name { "Example Product" }
-    description { "This is a sample product." }
-    price { 1000 }
+    information { "This is a sample product." }
+    selling_price { Faker::Commerce.price(range: 1000..10000) }
     # 他の属性も追加する
   end
 end
