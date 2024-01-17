@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
-  
+
   def index
-    @products = Product.order("created_at DESC")
+    @products = Product.order('created_at DESC')
   end
 
   def new
@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
       redirect_to products_path, notice: '商品を登録しました。'
     else
       # バリデーションエラーが発生した場合の処理
-      p @product.errors.full_messages  # ターミナルにエラーメッセージを表示
+      p @product.errors.full_messages # ターミナルにエラーメッセージを表示
       render :new, status: :unprocessable_entity
     end
   end
@@ -24,6 +24,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :information, :selling_price, :category_id, :condition_id, :delivery_charge_id, :delivery_area_id, :delivery_day_id, :user_id, :image)
+    params.require(:product).permit(:name, :information, :selling_price, :category_id, :condition_id, :delivery_charge_id,
+                                    :delivery_area_id, :delivery_day_id, :user_id, :image)
   end
 end
