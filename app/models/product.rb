@@ -26,9 +26,6 @@ class Product < ApplicationRecord
   # 販売価格が10,000,000円以上のときは保存できないようにする
   validates :selling_price, numericality: { only_integer: true, less_than: 10_000_000, message: 'must be less than 10,000,000' }
 
-  # 販売価格が全角数字のときは保存できないようにする
-  validate :selling_price_must_be_halfwidth_digits
-
   # 販売価格が数字以外のときは保存できないようにする
   validates :selling_price, numericality: { only_integer: true, message: 'must be an integer' }
 
