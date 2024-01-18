@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :user
-  #has_one :purchase_record
+  # has_one :purchase_record
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -32,9 +32,9 @@ class Product < ApplicationRecord
   # 販売価格が数字以外のときは保存できないようにする
   validates :selling_price, numericality: { only_integer: true, message: 'must be an integer' }
 
-  #販売価格が整数以外のときは保存できないようにする
+  # 販売価格が整数以外のときは保存できないようにする
   validates :selling_price, presence: true, numericality: { only_integer: true, message: 'must be an integer' }
-  
+
   private
 
   def selling_price_must_be_halfwidth_digits
