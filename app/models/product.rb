@@ -21,10 +21,10 @@ class Product < ApplicationRecord
             numericality: { other_than: 1, message: 'must be selected' }
 
   # 販売価格が299円以下のときは保存できないようにする
-  validates :selling_price, numericality: { greater_than: 299, message: 'must be greater than 299' }
+  validates :selling_price, numericality: { only_integer: true, greater_than: 299, message: 'must be greater than 299' }
 
   # 販売価格が10,000,000円以上のときは保存できないようにする
-  validates :selling_price, numericality: { less_than: 10_000_000, message: 'must be less than 10,000,000' }
+  validates :selling_price, numericality: { only_integer: true, less_than: 10_000_000, message: 'must be less than 10,000,000' }
 
   # 販売価格が全角数字のときは保存できないようにする
   validate :selling_price_must_be_halfwidth_digits
@@ -38,8 +38,8 @@ class Product < ApplicationRecord
   private
 
   def selling_price_must_be_halfwidth_digits
-    return if selling_price.to_s =~ /\A[0-9]+\z/
+    return if selling_price.is_a?(Integer)
 
-    errors.add(:selling_price, 'must be halfwidth digits')
+    errors.add(:selling_price, 'must be an integer')
   end
 end
