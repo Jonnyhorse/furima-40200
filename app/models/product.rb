@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :user
-  #belongs_to :purchase_records
+  # belongs_to :purchase_records
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
