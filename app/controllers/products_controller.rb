@@ -21,6 +21,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def show
+    @product = Product.show
+  end
+
   private
 
   def product_params
