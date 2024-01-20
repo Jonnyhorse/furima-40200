@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit]
 
   def index
     @products = Product.all.order('created_at DESC')
@@ -23,6 +23,26 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+  end
+
+  def edit
+    @product = Product.find(params[:id])
+
+    if current_user != @product.user
+      redirect_to root_path
+    end
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    if @product.update(product_params)
+        # 保存が成功した場合の処理
+      redirect_to product_path
+    else
+        # 保存が失敗した場合の処理
+      p @product.errors.full_messages # ターミナルにエラーメッセージを表示
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
