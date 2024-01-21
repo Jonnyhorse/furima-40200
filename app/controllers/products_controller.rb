@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit]
+  before_action :set_product, only: [:show, :edit, :update]
+
 
   def index
     @products = Product.all.order('created_at DESC')
@@ -22,19 +24,14 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def edit
-    @product = Product.find(params[:id])
-
     return unless current_user != @product.user
-
     redirect_to root_path
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       # 保存が成功した場合の処理
       redirect_to product_path
@@ -51,4 +48,9 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :information, :selling_price, :category_id, :condition_id, :delivery_charge_id,
                                     :delivery_area_id, :delivery_day_id, :user_id, :image)
   end
+
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
 end
