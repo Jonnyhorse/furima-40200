@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit]
-  before_action :set_product, only: [:show, :edit, :update]
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.all.order('created_at DESC')
@@ -28,6 +27,7 @@ class ProductsController < ApplicationController
 
   def edit
     return unless current_user != @product.user
+
     redirect_to root_path
   end
 
@@ -42,6 +42,13 @@ class ProductsController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user == @product.seller
+      @product.destroy
+    end
+    redirect_to root_path, notice: '商品を削除しました。'
+  end
+
   private
 
   def product_params
@@ -52,5 +59,4 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find(params[:id])
   end
-
 end
