@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
       redirect_to products_path, notice: '商品を登録しました。'
     else
       # バリデーションエラーが発生した場合の処理
-      p @product.errors.full_messages # ターミナルにエラーメッセージを表示
+      p @product.errors.full_messages # エラーメッセージを表示
       render :new, status: :unprocessable_entity
     end
   end
@@ -28,19 +28,19 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
 
-    if current_user != @product.user
-      redirect_to root_path
-    end
+    return unless current_user != @product.user
+
+    redirect_to root_path
   end
 
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
-        # 保存が成功した場合の処理
+      # 保存が成功した場合の処理
       redirect_to product_path
     else
-        # 保存が失敗した場合の処理
-      p @product.errors.full_messages # ターミナルにエラーメッセージを表示
+      # 保存が失敗した場合の処理
+      p @product.errors.full_messages # エラーメッセージを表示
       render :edit, status: :unprocessable_entity
     end
   end
