@@ -43,7 +43,9 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy
+    if current_user == @product.seller
+      @product.destroy
+    end
     redirect_to root_path, notice: '商品を削除しました。'
   end
 
