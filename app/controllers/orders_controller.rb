@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
-
+  before_action :authenticate_user!, except: :index
+  
   def index
     @products = Product.find(params[:product_id])
   end
 
   def create
-    binding.pry
     @order_delivery = OrderDelivery.new(set_params)
     if @order_delivery.save
       # 商品が正常に保存された場合の処理（通常は商品一覧ページなどにリダイレクトする）
