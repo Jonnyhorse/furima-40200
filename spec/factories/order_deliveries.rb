@@ -5,7 +5,7 @@ FactoryBot.define do
     municipalities {'札幌市'}
     street_address {'11-1'}
     building_name {}
-    phone_number {'080-1111-2222'}
+    phone_number {'08011112222'}
   end
   #association :order
 end

@@ -15,7 +15,6 @@ class OrderDelivery
   # end
 
   #空の投稿を保存できないようにする
-  validates :post_code, presence: true
   validates :municipalities, presence: true
   validates :street_address, presence: true
   validates :phone_number, presence: true
@@ -24,10 +23,10 @@ class OrderDelivery
   validates :delivery_area_id, numericality: { other_than: 1, message: 'must be selected' }
   
   # 郵便番号は、数字3桁、ハイフン、数字4桁の並びのみ許可する
-  validates :post_code, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+  validates :post_code, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-) and use only half-width digits"}
 
-  #電話番号は、半角数字以外では登録できない
-  validates  :phone_number, numericality: { only_integer: true, message: 'must be an integer' }
+  #電話番号は、半角数字10桁以上11桁以外では登録できない
+  validates  :phone_number, numericality: { only_integer: true, message: 'must be an integer' }, length: { minimum: 10, maximum: 11, message: 'must be 10 to 11 digits' }
   
   #validates :user_id
   # def error_messages
