@@ -51,7 +51,7 @@
 
 - belongs_to :user
 - belongs_to :product
-- has_one :delivery_information
+- has_one :delivery
 
 
 ## deliveries テーブル
