@@ -2,12 +2,9 @@ class OrderDelivery
 
  include ActiveModel::Model
   # ここにクラスの実装を追加
-
+  attr_accessor :token
   # ordersテーブルのカラム
-  attr_accessor :user_id, :product_id
-
-  # deliveriesテーブルのカラム
-  attr_accessor :post_code, :delivery_area_id, :municipalities, :street_address, :building_name, :phone_number
+  attr_accessor :user_id, :product_id, :post_code, :delivery_area_id, :municipalities, :street_address, :building_name, :phone_number, :selling_price
 
   # form_withメソッドに対応する機能を追加
   # def self.model_name
