@@ -8,11 +8,11 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @product.image, class: 'product-image', style: "max-width: 100%; max-height: 100%;"%>
-      <%# 商品が売れている場合は、sold outを表示しましょう %>
-      <%#div class="sold-out">
-        <span>Sold Out!!</span>
-      </div>
-      <%# //商品が売れている場合は、sold outを表示しましょう %>
+      <% if @product.order.present? %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -23,13 +23,13 @@
       </span>
     </div>
 
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @product.order.nil? %>
       <% if current_user == @product.user %>
-        <%= link_to "商品の編集",edit_product_path, method: :get, class: "item-red-btn" %>
+        <%= link_to "商品の編集",edit_product_path(@product), method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
-        <%= link_to "削除", "/products/#{@product.id}", data: {turbo_method: :delete}, class:"item-destroy" %>
+        <%= link_to "削除", products_path(@product), data: {turbo_method: :delete}, class:"item-destroy" %>
       <% else %>
-        <%= link_to "購入画面に進む", "#" ,class:"item-red-btn"%>
+        <%= link_to "購入画面に進む",product_orders_path(@product.id) ,class:"item-red-btn"%>
       <% end %>
     <% end %>
 
