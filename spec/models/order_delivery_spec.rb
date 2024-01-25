@@ -15,6 +15,7 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.building_name = ''
         expect(@order_delivery).to be_valid
       end
+
     end
 
     context '内容に問題がある場合' do
@@ -61,6 +62,12 @@ RSpec.describe OrderDelivery, type: :model do
       it 'userが紐付いていないと保存できないこと' do
       end
       it 'productが紐付いていないと保存できないこと' do
+      end
+
+      it "tokenが空では登録できないこと" do
+        @order_delivery.token = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
       end
           #pending "add some examples to (or delete) #{__FILE__}"
     end
