@@ -12,12 +12,12 @@ class OrderDelivery
   validates_presence_of :municipalities, :street_address, :phone_number, :post_code
   validates :token, :user_id, :product_id, presence: true
 
-
   # 配送先の都道府県について、ジャンルの選択が「---」の時は保存できないようにする
   validates :delivery_area_id, numericality: { other_than: 1, message: 'must be selected' }
 
   # 郵便番号は、数字3桁、ハイフン、数字4桁の並びのみ許可する
-  validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-) and use only half-width digits'}
+  validates :post_code,
+            format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-) and use only half-width digits' }
 
   # 電話番号は、半角数字10桁以上11桁以外では登録できない
   validates :phone_number, numericality: { only_integer: true, message: 'must be an integer' },
