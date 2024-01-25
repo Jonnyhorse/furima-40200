@@ -4,12 +4,14 @@ class OrderDelivery
   # ここにクラスの実装を追加
   attr_accessor :token
   # ordersテーブルのカラム
-  attr_accessor :user_id, :product_id, :post_code, :delivery_area_id, :municipalities, :street_address, :building_name, :phone_number, :selling_price
+  attr_accessor :user_id, :token, :product_id, :post_code, :delivery_area_id, :municipalities, :street_address, :building_name, :phone_number, :selling_price
 
   # form_withメソッドに対応する機能を追加
   # def self.model_name
   #   ActiveModel::Name.new(self, nil, "Order")
   # end
+
+  validates :token, presence: true
 
   #空の投稿を保存できないようにする
   validates :municipalities, presence: true
