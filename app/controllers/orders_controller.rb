@@ -5,12 +5,11 @@ class OrdersController < ApplicationController
     @product = Product.find(params[:product_id])
     if @product.user_id == current_user.id || @product.order.present?
       redirect_to root_path
-      return  # アクションの実行をここで終了
+      return # アクションの実行をここで終了
     end
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_delivery = OrderDelivery.new
   end
-
 
   def create
     @product = Product.find(params[:product_id])
@@ -20,7 +19,7 @@ class OrdersController < ApplicationController
       @order_delivery.save
       redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
@@ -29,15 +28,17 @@ class OrdersController < ApplicationController
 
   def order_delivery_params
     product = Product.find(params[:product_id])
-    params.require(:order_delivery).permit(:post_code, :delivery_area_id, :municipalities,:street_address, :building_name, :phone_number).merge(token: params[:token], user_id: current_user.id, product_id: params[:product_id], selling_price: product.selling_price )
+    params.require(:order_delivery).permit(:post_code, :delivery_area_id, :municipalities, :street_address, :building_name, :phone_number).merge(
+      token: params[:token], user_id: current_user.id, product_id: params[:product_id], selling_price: product.selling_price
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: order_delivery_params[:selling_price],  # 商品の値段
-      card: order_delivery_params[:token],    # カードトークン
-      currency: 'jpy'                 # 通貨の種類（日本円）
+      amount: order_delivery_params[:selling_price], # 商品の値段
+      card: order_delivery_params[:token], # カードトークン
+      currency: 'jpy' # 通貨の種類（日本円）
     )
   end
 end

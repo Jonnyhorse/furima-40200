@@ -26,12 +26,11 @@ class ProductsController < ApplicationController
   end
 
   def edit
-  return redirect_to root_path if current_user != @product.user
+    return redirect_to root_path if current_user != @product.user
 
-  if @product.order.present?
+    return unless @product.order.present?
+
     redirect_to root_path
-  end
-    
   end
 
   def update
@@ -46,9 +45,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    if current_user == @product.seller
-      @product.destroy
-    end
+    @product.destroy if current_user == @product.seller
     redirect_to root_path, notice: '商品を削除しました。'
   end
 

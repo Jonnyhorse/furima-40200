@@ -15,7 +15,6 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.building_name = ''
         expect(@order_delivery).to be_valid
       end
-
     end
 
     context '内容に問題がある場合' do
@@ -52,24 +51,24 @@ RSpec.describe OrderDelivery, type: :model do
       it 'phone_numberが半角数値10桁以上11桁以内の場合は保存できないこと' do
         @order_delivery.phone_number = '1'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Phone number must be 10 to 11 digits")
+        expect(@order_delivery.errors.full_messages).to include('Phone number must be 10 to 11 digits')
       end
       it 'phone_numberが数値以外の場合は保存できないこと' do
         @order_delivery.phone_number = '１'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Phone number must be an integer")
+        expect(@order_delivery.errors.full_messages).to include('Phone number must be an integer')
       end
       it 'userが紐付いていないと保存できないこと' do
       end
       it 'productが紐付いていないと保存できないこと' do
       end
 
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @order_delivery.token = nil
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
       end
-          #pending "add some examples to (or delete) #{__FILE__}"
+      # pending "add some examples to (or delete) #{__FILE__}"
     end
-   end
+  end
 end
