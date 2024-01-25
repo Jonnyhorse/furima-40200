@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_product, only: [:index, :create]
 
   def index
-    @product = Product.find(params[:product_id])
     if @product.user_id == current_user.id || @product.order.present?
       redirect_to root_path
       return # アクションの実行をここで終了
@@ -12,7 +12,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @product = Product.find(params[:product_id])
     @order_delivery = OrderDelivery.new(order_delivery_params)
     if @order_delivery.valid?
       pay_item
@@ -25,6 +24,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def set_product
+    @product = Product.find(params[:product_id])
+  end
 
   def order_delivery_params
     product = Product.find(params[:product_id])

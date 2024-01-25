@@ -48,8 +48,13 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが半角数値10桁以上11桁以内の場合は保存できないこと' do
+      it 'phone_numberが半角数値9桁以下の場合は保存できないこと' do
         @order_delivery.phone_number = '1'
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include('Phone number must be 10 to 11 digits')
+      end
+      it 'phone_numberが半角数値12桁以上の場合は保存できないこと' do
+        @order_delivery.phone_number = '111111111111'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include('Phone number must be 10 to 11 digits')
       end
@@ -59,10 +64,13 @@ RSpec.describe OrderDelivery, type: :model do
         expect(@order_delivery.errors.full_messages).to include('Phone number must be an integer')
       end
       it 'userが紐付いていないと保存できないこと' do
+        @order_delivery.user_id = nil
+        @order_delivery.valid?
       end
       it 'productが紐付いていないと保存できないこと' do
+        @order_delivery.product_id = nil
+        @order_delivery.valid?
       end
-
       it 'tokenが空では登録できないこと' do
         @order_delivery.token = nil
         @order_delivery.valid?
