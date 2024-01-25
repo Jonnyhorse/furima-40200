@@ -4,10 +4,9 @@ FactoryBot.define do
     delivery_area_id { 2 }
     municipalities { '札幌市' }
     street_address { '11-1' }
-    building_name {}
+    building_name { 201 }
     phone_number { '08011112222' }
     token { 'tok_abcdefghijk00000000000000000' }
-    product_id { 10 }
   end
   # association :order
 end

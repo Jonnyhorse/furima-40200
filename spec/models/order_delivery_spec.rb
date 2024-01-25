@@ -4,7 +4,8 @@ RSpec.describe OrderDelivery, type: :model do
   describe '購入情報の保存' do
     before do
       user = FactoryBot.create(:user)
-      @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id)
+      product = FactoryBot.create(:product)
+      @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id, product_id: product.id)
     end
 
     context '内容に問題がない場合' do
@@ -66,17 +67,18 @@ RSpec.describe OrderDelivery, type: :model do
       it 'userが紐付いていないと保存できないこと' do
         @order_delivery.user_id = nil
         @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("User can't be blank")
       end
       it 'productが紐付いていないと保存できないこと' do
         @order_delivery.product_id = nil
         @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("Product can't be blank")
       end
       it 'tokenが空では登録できないこと' do
         @order_delivery.token = nil
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
       end
-      # pending "add some examples to (or delete) #{__FILE__}"
     end
   end
 end
